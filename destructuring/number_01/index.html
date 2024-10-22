@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destructuring Example</title>
+</head>
+<body>
+
+<h1>Destructuring Objek</h1>
+<button onclick="destructureObject()">Coba Destructuring Objek</button>
+
+<script>
+    function destructureObject() {
+        const person = {
+            name: "Marfis",
+            age: 25,
+            job: "Developer"
+        };
+
+        // Destructuring objek
+        const { name, age, job } = person;
+
+        alert(`Name: ${name}, Age: ${age}, Job: ${job}`);
+    }
+</script>
+
+</body>
+</html>

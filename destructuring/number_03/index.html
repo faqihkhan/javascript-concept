@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destructuring with Default Values</title>
+</head>
+<body>
+
+<h1>Destructuring dengan Nilai Default</h1>
+<button onclick="destructureWithDefault()">Coba Destructuring dengan Nilai Default</button>
+
+<script>
+    function destructureWithDefault() {
+        const person = {
+            name: "Marfis"
+        };
+
+        // Destructuring dengan nilai default
+        const { name, age = 30 } = person;
+
+        alert(`Name: ${name}, Age: ${age}`);
+    }
+</script>
+
+</body>
+</html>

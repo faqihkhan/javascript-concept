@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h1>catatan</h1>
+        <input type="text" id="tulisan" onkeydown="kunciKey(event)">
+        <button onclick="tekanan()">tekan</button>
+    </div>
+    <ul id="hasilan"></ul>
+    <button onclick="hapusSemua()">hapus semua</button>
+</body>
+<script>
+    function tekanan() {
+        const tulis = document.getElementById('tulisan')
+        if (tulis.value !== '') {
+            const hasil = document.getElementById('hasilan')
+            const buat = document.createElement('li')
+            buat.innerText = tulis.value
+
+            const hapus = document.createElement('button')
+            hapus.innerText = 'hapus'
+            hapus.style.marginLeft = "20p"
+            hapus.onclick = () => {
+                hasil.removeChild(buat)
+                console.log('hapus satu')
+            }
+            buat.appendChild(hapus)
+
+            hasil.appendChild(buat)
+            console.log(`${tulis.value}`)
+            tulis.value = ''
+        } else {
+            console.log('tulis dulu dek!!!!!')
+        }
+    }
+
+    function hapusSemua() {
+        const hapusSemua = document.getElementById('hasilan')
+        while (hapusSemua.firstChild) {
+            hapusSemua.removeChild(hapusSemua.firstChild)
+        }
+        console.log('sudah dihapus semua')
+    }
+
+    function kunciKey(event) {
+        if (event.key === "Enter") {
+            tekanan()
+        } else if (event.key === 'Delete') {
+            if (event.shiftKey) {
+                hapusSemua()
+            } else {
+                const hapusSatu = document.getElementById('hasilan')
+                if (hapusSatu.lastChild) {
+                    hapusSatu.removeChild(hapusSatu.lastChild)
+                    console.log('hapus satu item terakhir')
+                }
+            }
+        }
+    }
+</script>
+
+</html>

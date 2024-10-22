@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destructuring Example</title>
+</head>
+<body>
+
+    <h1>Destructuring in JavaScript</h1>
+    <p id="destructuring-output"></p>
+
+    <script>
+        // Menggunakan destructuring pada objek
+        const student = {
+            name: 'Marfis',
+            age: 22,
+            class: '12th grade',
+        };
+
+        const { name, age } = student; 
+        document.getElementById('destructuring-output').textContent = `Name: ${name}, Age: ${age}`;
+    </script>
+
+</body>
+</html>

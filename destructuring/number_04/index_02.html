@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No Destructuring Example</title>
+</head>
+<body>
+
+    <h1>No Destructuring in JavaScript</h1>
+    <p id="no-destructuring-output"></p>
+
+    <script>
+        // Tanpa menggunakan destructuring pada objek
+        const student = {
+            name: 'Marfis',
+            age: 22,
+            class: '12th grade',
+        };
+
+        const name = student.name;
+        const age = student.age;
+        document.getElementById('no-destructuring-output').textContent = `Name: ${name}, Age: ${age}`;
+    </script>
+
+</body>
+</html>
