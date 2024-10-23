@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menghapus Properti dari Objek di JavaScript</title>
+</head>
+
+<body>
+    <h1>Menghapus Properti dari Objek di JavaScript</h1>
+
+    <p><strong>Nama:</strong> <span id="nama"></span></p>
+    <p><strong>Kelas (sebelum dihapus):</strong> <span id="kelasSebelum"></span></p>
+    <p><strong>Kelas (setelah dihapus):</strong> <span id="kelasSetelah"></span></p>
+
+    <script>
+        let murid = {
+            nama: "Mahmud",
+            nim: 2342,
+            kelas: "10A"
+        }
+
+        document.getElementById('nama').textContent = murid.nama;
+        document.getElementById('kelasSebelum').textContent = murid.nim;
+        document.getElementById('kelasSebelum').textContent = murid.kelas;
+
+        delete murid.kelas
+
+        document.getElementById('kelasSetelah').textContent = murid.kelas
+
+        console.log(murid.kelas)
+    </script>
+</body>
+
+</html>

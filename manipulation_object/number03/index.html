@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menambahkan Properti pada Objek di JavaScript</title>
+</head>
+
+<body>
+    <h1>Menambahkan Properti pada Objek di JavaScript</h1>
+
+    <p><strong>Nama: </strong><span id="nama"></span></p>
+    <p><strong>Nim: </strong><span id="nim"></span></p>
+    <p><strong>Kelas: </strong><span id="kelas"></span></p>
+    <p><strong>Alamat: </strong><span id="alamat"></span></p>
+</body>
+<script>
+    let murid = {
+        nama: "Muhammad",
+        nim: "34545",
+        kelas: "9A",
+    }
+
+    document.getElementById('nama').textContent = murid.nama;
+    document.getElementById('nim').textContent = murid.nim;
+    document.getElementById('kelas').textContent = murid.kelas;
+
+    murid.alamat = "Jakarta"
+
+    document.getElementById('alamat').textContent = murid.alamat
+
+    console.log(murid)
+
+</script>
+</html>

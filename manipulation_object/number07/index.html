@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metode dalam Objek di JavaScript</title>
+</head>
+<body>
+    <h1>Metode dalam Objek di JavaScript</h1>
+    
+    <!-- Elemen untuk menampilkan output dari metode -->
+    <p id="output"></p>
+
+    <script>
+        // Membuat objek 'mobil' dengan properti merk, model, dan metode 'start'
+        let mobil = {
+            merk: "Toyota",      // Properti 'merk' berisi string "Toyota"
+            model: "Corolla",    // Properti 'model' berisi string "Corolla"
+            
+            // Metode 'start' yang menggunakan 'this' untuk mengakses properti dalam objek
+            start: function() {
+                // Output saat metode start dipanggil
+                console.log(this.merk + " " + this.model + " menyala.");
+                
+                // Menampilkan output di halaman HTML
+                document.getElementById("output").textContent = this.merk + " " + this.model + " menyala.";
+            }
+        };
+
+        // Memanggil metode 'start' pada objek 'mobil'
+        mobil.start();  // Output: Toyota Corolla menyala.
+    </script>
+</body>
+</html>
