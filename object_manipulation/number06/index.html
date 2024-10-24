@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iterasi Objek di JavaScript</title>
+</head>
+<body>
+    <h1>Iterasi Objek di JavaScript</h1>
+    
+    <p><strong>Iterasi Properti Siswa:</strong></p>
+    <ul id="hasil"></ul>
+
+<script>
+    let murid = {
+        nama: "Kurniawan",
+        umur: 16,
+        nim: 456,
+        kelas: "10B",
+        asal: "Medan"
+    }
+
+    let tool = ''
+    for (const key in murid) {
+        tool += "<li>" + key + ": " + murid[key] + "</li>"
+    }
+
+    document.getElementById('hasil').innerHTML = tool
+
+    for (const key in murid) {
+        console.log(key + ": " + murid[key])
+    }
+</script>
+</body>
+</html>

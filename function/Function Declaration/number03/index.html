@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Declaration Example</title>
+</head>
+<body>
+    <h1>Function Declaration - Add New Element</h1>
+    <button id="addElementButton">Tambah Elemen Baru</button>
+    <ul id="itemList">
+        <li>Item 1</li>
+        <li>Item 2</li>
+    </ul>
+
+    <script>
+        // Function declaration to add new list item
+        function addNewItem() {
+            let newItem = document.createElement('li');
+            newItem.textContent = "Item Baru";
+            document.getElementById('itemList').appendChild(newItem);
+        }
+
+        // Attach event listener to button
+        document.getElementById('addElementButton').addEventListener('click', addNewItem);
+    </script>
+</body>
+</html>

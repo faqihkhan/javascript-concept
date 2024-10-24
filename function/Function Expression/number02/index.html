@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Expression Example</title>
+</head>
+<body>
+    <h1>Function Expression</h1>
+    <div id="expressionResult"></div>
+
+    <script>
+        // Function expression without return
+        const addExpression = function(a, b) {
+            console.log(a + b);  // No return, just console log
+        };
+
+        // Call the function
+        addExpression(4, 6);  // Output: 10 (in console)
+        document.getElementById('expressionResult').textContent = "Check the console for function expression result!";
+    </script>
+</body>
+</html>

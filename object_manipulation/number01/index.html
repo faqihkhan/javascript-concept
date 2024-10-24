@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulasi Objek di HTML</title>
+</head>
+
+<body>
+    <P id="murid"></P>
+</body>
+<script>
+    let murid = {
+        nama: "Fajri",
+        umur: 16,
+        kelas: "12B",
+        asal: "Bekasi",
+    }
+
+    document.getElementById("murid").innerHTML =
+        "Nama: " + murid.nama + "<br>" + 
+        "Umur: " + murid["umur"] + "<br>" +
+        "Kelas: " + murid.kelas + "<br>" + 
+        "Asal: " + murid["asal"]
+
+</script>
+
+</html>

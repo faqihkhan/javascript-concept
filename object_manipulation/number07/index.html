@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objek Mobil Dinamis</title>
+</head>
+<body>
+    <h2>Informasi Mobil</h2>
+    
+    <p id="output"></p>
+
+<script>
+    let mobil = {
+        merek: "Toyota",
+        warna: "Biru",
+        // Function expressions atau function declarations
+        mulai: function () {
+            document.getElementById('output').innerHTML = "Merek" + ": " + this.merek + "<br>" + "Warna" + ": " + this.warna + "."
+
+            // \n (newline)
+            console.log(this.merek + "\n" + this.warna)
+        }
+    }
+
+    mobil.mulai()
+    // Arrow functions tidak memiliki binding ke this. Mereka menggunakan this dari lingkup luar (lexical context).
+</script>
+</body>
+</html>

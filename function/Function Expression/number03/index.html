@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Expression Example</title>
+</head>
+<body>
+    <h1>Function Expression - Change Background Color</h1>
+
+    <button id="ubahWarna">Ubah Warna Latar</button>
+
+    <button id="kembalikanWarna">Kembalikan Warna Latar</button>
+
+<script>
+    const colors = ["lightblue", "lightyellow", "lightgreen"]
+    let angkaR = 0
+
+    const ubah = function () {
+        document.body.style.backgroundColor = colors[angkaR]
+        angkaR = (angkaR + 1) % colors.length;
+    }
+
+    const back = function () {
+        document.body.style.backgroundColor = "white"
+        angkaR = 0
+    }
+
+    document.getElementById('ubahWarna').addEventListener("click", ubah);
+    document.getElementById('kembalikanWarna').addEventListener("click", back);
+</script>
+</body>
+</html>

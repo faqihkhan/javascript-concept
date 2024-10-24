@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membuat dan Mengakses Objek</title>
+</head>
+<body>
+    <h1>Contoh Membuat dan Mengakses Objek di JavaScript</h1>
+    
+    <p><strong>Nama:</strong> <span id="nama"></span></p>
+    <p><strong>Umur:</strong> <span id="umur"></span></p>
+    <p><strong>Kelas:</strong> <span id="kelas"></span></p>
+
+    <script>
+        let murid = {
+            nama: "Ali",
+            umur: 16,
+            kelas: "11A",
+            asal: "Tangerang",
+        }
+
+        document.getElementById('nama').textContent = murid.nama
+        document.getElementById('umur').textContent = murid["umur"]
+        document.getElementById('kelas').textContent = murid["kelas"]
+
+        console.log(murid.nama)
+        console.log(murid.umur) // Dot Notation
+        console.log(murid["kelas"]) // Bracket Notation
+
+    </script>
+</body>
+</html>

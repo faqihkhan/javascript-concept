@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mengubah Nilai Properti pada Objek di JavaScript</title>
+</head>
+<body>
+    <h1>Mengubah Nilai Properti pada Objek di JavaScript</h1>
+    
+    <p><strong>Nama:</strong> <span id="nama"></span></p>
+    <p><strong>Umur (sebelum diubah):</strong> <span id="umurSebelum"></span></p>
+    <p><strong>Umur (setelah diubah):</strong> <span id="umurSetelah"></span></p>
+
+<script>
+    let murid = {
+        nama: "Junaidi",
+        umur: 17,
+    }
+
+    document.getElementById("nama").innerHTML = murid.nama
+    document.getElementById("umurSebelum").innerHTML = murid.umur
+
+    murid.umur = 18
+
+    document.getElementById('umurSetelah').innerHTML = murid.umur
+
+    console.log(murid["umur"])
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Function Example</title>
+</head>
+<body>
+    <h1>Arrow Function - DOM Manipulation</h1>
+    <p id="arrowText">Ini teks awal.</p>
+    <button id="changeTextButton">Ubah Teks</button>
+
+    <script>
+        // Arrow function to change text content of a paragraph
+        const changeText = () => {
+            document.getElementById('arrowText').textContent = "Teks telah diubah menggunakan Arrow Function!";
+        };
+
+        // Attach event listener to button
+        document.getElementById('changeTextButton').addEventListener('click', changeText);
+    </script>
+</body>
+</html>

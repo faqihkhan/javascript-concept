@@ -17,20 +17,19 @@
 </body>
 <script>
     let murid = {
-        nama: "Muhammad",
-        nim: "34545",
-        kelas: "9A",
+        nama: "Ghani",
+        nim: 235,
+        kelas: "9A"
     }
 
-    document.getElementById('nama').textContent = murid.nama;
-    document.getElementById('nim').textContent = murid.nim;
-    document.getElementById('kelas').textContent = murid.kelas;
+    document.getElementById('nama').innerHTML = murid["nama"]
+    document.getElementById('nim').innerHTML = murid.nim
+    document.getElementById('kelas').innerHTML = murid.kelas
 
-    murid.alamat = "Jakarta"
+    murid.alamat = "Jombang"
 
-    document.getElementById('alamat').textContent = murid.alamat
+    document.getElementById('alamat').innerHTML = murid["alamat"]
 
     console.log(murid)
-
 </script>
 </html>

@@ -14,23 +14,22 @@
     <p><strong>Kelas (sebelum dihapus):</strong> <span id="kelasSebelum"></span></p>
     <p><strong>Kelas (setelah dihapus):</strong> <span id="kelasSetelah"></span></p>
 
-    <script>
-        let murid = {
-            nama: "Mahmud",
-            nim: 2342,
-            kelas: "10A"
-        }
+<script>
+    let murid = {
+        nama: "Ja'far",
+        kelas: "9A"
+    }
 
-        document.getElementById('nama').textContent = murid.nama;
-        document.getElementById('kelasSebelum').textContent = murid.nim;
-        document.getElementById('kelasSebelum').textContent = murid.kelas;
+    document.getElementById('nama').innerHTML = murid.nama
+    document.getElementById('kelasSebelum').innerHTML = murid["kelas"]
 
-        delete murid.kelas
+    delete murid.kelas
 
-        document.getElementById('kelasSetelah').textContent = murid.kelas
+    document.getElementById('kelasSetelah').innerHTML = murid.kelas
 
-        console.log(murid.kelas)
-    </script>
+    console.log(murid["kelas"])
+
+</script>
 </body>
 
 </html>
