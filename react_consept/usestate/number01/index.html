@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter Example</title>
+</head>
+<body>
+    <h1>Count: <span id="count">0</span></h1>
+    <button id="increaseButton">Tambah</button>
+
+    <script>
+        let count = 0; // Deklarasi variabel untuk menyimpan count
+
+        const countDisplay = document.getElementById('count');
+        const increaseButton = document.getElementById('increaseButton');
+
+        // Fungsi untuk menambah count dan memperbarui tampilan
+        function increaseCount() {
+            count += 1; // Menambah count
+            countDisplay.textContent = count; // Memperbarui tampilan
+        }
+
+        // Menambahkan event listener pada tombol
+        increaseButton.addEventListener('click', increaseCount);
+    </script>
+</body>
+</html>
