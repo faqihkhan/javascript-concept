@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <button id="ubahWarna">Ubah Warna</button>
+        <button id="back">Kembali</button>
+        <h1>Catatan</h1>
+        <input type="text" id="tulisan" placeholder="Masukkan catatan...">
+        <button onclick="tekanan()">Tekan</button>
+    </div>
+    <ul id="hasilan"></ul>
+    
+    <button id="hapusSemua">Hapus Semua Catatan</button> <!-- Tombol untuk menghapus semua catatan -->
+
+<script>
+    const colors = ["lightblue", "lightyellow", "lightgreen"];
+    let angkaR = 0;
+
+    // Fungsi untuk mengubah warna latar
+    const ubah = function () {
+        document.body.style.backgroundColor = colors[angkaR];
+        angkaR = (angkaR + 1) % colors.length;
+    };
+
+    // Fungsi untuk mengembalikan warna latar
+    const back = function () {
+        document.body.style.backgroundColor = "white";
+    };
+
+    document.getElementById('ubahWarna').addEventListener("click", ubah);
+    document.getElementById('back').addEventListener("click", back);
+
+    // Fungsi untuk menambahkan catatan
+    function tekanan() {
+        const tulis = document.getElementById('tulisan');
+        const hasil = document.getElementById('hasilan');
+
+        if (tulis.value !== '') {
+            const buat = document.createElement('li');
+            buat.innerHTML = tulis.value;
+
+            const hapus = document.createElement('button');
+            hapus.innerText = 'Hapus';
+            hapus.style.marginLeft = "20px";
+            hapus.onclick = function () {
+                hasil.removeChild(buat);
+            };
+
+            buat.appendChild(hapus); // Tambahkan tombol hapus ke li
+            hasil.appendChild(buat); // Tambahkan li ke ul
+            tulis.value = ''; // Kosongkan input
+        } else {
+            console.log('Tulis dulu dek!!!');
+        }
+    }
+
+    // Fungsi untuk menghapus semua catatan
+    document.getElementById('hapusSemua').onclick = function () {
+        const hasil = document.getElementById('hasilan');
+        hasil.innerHTML = ''; // Kosongkan isi dari ul
+    };
+
+    // document.getElementById('hapusSemua').onclick = function () {
+    //         const hasil = document.getElementById('hasilan');
+
+    //         // Menghapus semua child dari hasil satu per satu
+    //         while (hasil.firstChild) {
+    //             hasil.removeChild(hasil.firstChild);
+    //         }
+    //     }
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>Catatan</h1>
+        <input type="text" id="tulisan" placeholder="Masukkan catatan...">
+        <button onclick="tekanan()">Tekan</button>
+    </div>
+    <ul id="hasilan"></ul>
+
+<script>
+    function tekanan() {
+        const tulis = document.getElementById('tulisan')
+        const hasil = document.getElementById('hasilan')
+
+        if (tulis.value !== '') {
+            const buat = document.createElement('li')
+            buat.innerHTML = tulis.value
+
+            const hapus = document.createElement('button')
+            hapus.innerText = 'hapus'
+            hapus.style.marginLeft = "20px"
+            hapus.onclick = function () {
+                hasil.removeChild(buat)
+            }
+            buat.appendChild(hapus)
+            hasil.appendChild(buat)
+            tulis.value = ''
+        } else {
+            console.log('tulis dulu dek!!!')
+        }
+    }
+</script>
+</body>
+</html>
