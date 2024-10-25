@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator Sederhana dengan Prioritas Operasi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+    .calculator {
+      width: 200px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .display {
+      width: 100%;
+      height: 40px;
+      font-size: 1.2em;
+      text-align: right;
+      margin-bottom: 10px;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+    .button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: none;
+      background-color: #f7f7f7;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .button.operation {
+      background-color: #ffa500;
+      color: #fff;
+    }
+    .button.equal {
+      grid-column: span 2;
+      background-color: #28a745;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="calculator">
+  <input type="text" id="display" class="display" disabled />
+  <div class="buttons">
+    <button class="button" onclick="appendValue('7')">7</button>
+    <button class="button" onclick="appendValue('8')">8</button>
+    <button class="button" onclick="appendValue('9')">9</button>
+    <button class="button operation" onclick="appendOperator('/')">/</button>
+
+    <button class="button" onclick="appendValue('4')">4</button>
+    <button class="button" onclick="appendValue('5')">5</button>
+    <button class="button" onclick="appendValue('6')">6</button>
+    <button class="button operation" onclick="appendOperator('*')">*</button>
+
+    <button class="button" onclick="appendValue('1')">1</button>
+    <button class="button" onclick="appendValue('2')">2</button>
+    <button class="button" onclick="appendValue('3')">3</button>
+    <button class="button operation" onclick="appendOperator('-')">-</button>
+
+    <button class="button" onclick="appendValue('0')">0</button>
+    <button class="button" onclick="appendValue('.')">.</button>
+    <button class="button equal" onclick="calculate()">=</button>
+    <button class="button operation" onclick="appendOperator('+')">+</button>
+
+    <button class="button" onclick="clearDisplay()">C</button>
+  </div>
+</div>
+
+<script>
+  let expression = '';
+
+  function appendValue(value) {
+    expression += value;
+    updateDisplay();
+  }
+
+  function appendOperator(operator) {
+    if (expression === '' || "+-*/".includes(expression.slice(-1))) return;
+    expression += operator;
+    updateDisplay();
+  }
+
+  function calculate() {
+    const tokens = expression.match(/(\d+\.?\d*|\+|\-|\*|\/)/g);
+    if (!tokens) return;
+
+    // Step 1: Handle multiplication and division
+    const stack = [];
+    let i = 0;
+
+    while (i < tokens.length) {
+      const token = tokens[i];
+      
+      if (token === '*' || token === '/') {
+        const prev = parseFloat(stack.pop());
+        const next = parseFloat(tokens[++i]);
+        const result = token === '*' ? prev * next : prev / next;
+        stack.push(result);
+      } else {
+        stack.push(token);
+      }
+      i++;
+    }
+
+    // Step 2: Handle addition and subtraction
+    let result = parseFloat(stack[0]);
+    for (let j = 1; j < stack.length; j += 2) {
+      const operator = stack[j];
+      const nextValue = parseFloat(stack[j + 1]);
+      result = operator === '+' ? result + nextValue : result - nextValue;
+    }
+
+    expression = result.toString();
+    updateDisplay();
+  }
+
+  function clearDisplay() {
+    expression = '';
+    updateDisplay();
+  }
+
+  function updateDisplay() {
+    document.getElementById("display").value = expression;
+  }
+</script>
+
+</body>
+</html>
