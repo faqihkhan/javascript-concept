@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menyaring Array (Filter)</title>
+</head>
+<body>
+  <h1>Menyaring Array (Filter)</h1>
+  <p id="array-filter"></p>
+  <button onclick="filterArray()">Filter Angka > 5</button>
+
+  <script>
+    let arrayFilter = [1, 4, 7, 3, 6];
+    document.getElementById("array-filter").innerText = `Array Awal: ${arrayFilter}`;
+    function filterArray() {
+      const filteredArray = arrayFilter.filter(num => num > 5);
+      document.getElementById("array-filter").innerText = `Array Setelah Filter: ${filteredArray}`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mengubah Array (Map)</title>
+</head>
+<body>
+  <h1>Mengubah Array (Map)</h1>
+  <p id="array-map"></p>
+  <button onclick="mapArray()">Gandakan Nilai</button>
+
+  <script>
+    let arrayMap = [1, 2, 3];
+    document.getElementById("array-map").innerText = `Array Awal: ${arrayMap}`;
+    function mapArray() {
+      const mappedArray = arrayMap.map(num => num * 2);
+      document.getElementById("array-map").innerText = `Array Setelah Map: ${mappedArray}`;
+    }
+  </script>
+</body>
+</html>

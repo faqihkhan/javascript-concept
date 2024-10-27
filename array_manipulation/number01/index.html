@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menambahkan Elemen ke Array</title>
+</head>
+<body>
+  <h1>Menambahkan Elemen ke Array</h1>
+  <p id="array"></p>
+  <button onclick="addElement()">Tambah Elemen</button>
+
+  <script>
+    let number = [1, 2, 3]
+    document.getElementById('array').innerText = `sebelum ${number}`
+    function addElement() {
+        number.push(4)
+        document.getElementById('array').innerText = `setelah ${number}`
+    }
+  </script>
+
+
+</body>
+</html>

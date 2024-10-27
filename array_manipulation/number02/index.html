@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menghapus Elemen dari Array</title>
+</head>
+<body>
+  <h1>Menghapus Elemen dari Array</h1>
+  <p id="array-remove"></p>
+  <button onclick="removeElement()">Hapus Elemen Terakhir</button>
+
+  <script>
+    let arrayRemove = [1, 2, 3, 4];
+    document.getElementById("array-remove").innerText = `Array Awal: ${arrayRemove}`;
+    function removeElement() {
+      arrayRemove.pop();
+      document.getElementById("array-remove").innerText = `Array Setelah Dihapus: ${arrayRemove}`;
+    }
+  </script>
+</body>
+</html>
