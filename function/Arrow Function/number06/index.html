@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Function Example</title>
+</head>
+<body>
+    <h1>Arrow Function - DOM Manipulation</h1>
+    <p id="arrowText">Ini teks awal yang harus kalian perhatikan karena bisa berubah-ubah tulisannya ya.</p>
+    <button id="changeTextButton">Ubah Teks</button>
+
+<script>
+    const sebelum = "Ini teks awal yang harus kalian perhatikan karena bisa berubah-ubah tulisannya ya."
+    const setelah = "setealh diklik"
+    const best = () => {
+        const hasil = document.getElementById('arrowText')
+        if (hasil.innerText === sebelum) {
+            hasil.innerText = setelah
+        } else {
+            hasil.innerText = sebelum
+        }
+    }
+    document.getElementById('changeTextButton').addEventListener('click', best)
+</script>
+</body>
+</html>

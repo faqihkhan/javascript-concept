@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Siswa</title>
+</head>
+
+<body>
+    <h1>Data Siswa dari Kota Bandung</h1>
+    <div id="studentData"></div>
+
+    <script>
+        // Data siswa dalam bentuk array of objects
+
+        const murid = [
+            { nama: 'Ali', kota: 'Bekasi' },
+            { nama: 'Mahmud', kota: 'Gorontalo' }
+        ]
+
+        const students = [
+            { nama: "Ayu", kelas: "9A", kota: "Jakarta", nim: "1001" },
+            { nama: "Budi", kelas: "10A", kota: "Bandung", nim: "1002" },
+            { nama: "Citra", kelas: "11A", kota: "Surabaya", nim: "1003" },
+            { nama: "Dewi", kelas: "12A", kota: "Medan", nim: "1004" },
+            { nama: "Eko", kelas: "9A", kota: "Makassar", nim: "1005" },
+            { nama: "Fajar", kelas: "10A", kota: "Yogyakarta", nim: "1006" },
+            { nama: "Gina", kelas: "11A", kota: "Semarang", nim: "1007" },
+            { nama: "Hadi", kelas: "12A", kota: "Palembang", nim: "1008" },
+            { nama: "Ika", kelas: "9A", kota: "Bali", nim: "1009" },
+            { nama: "Joko", kelas: "10A", kota: "Malang", nim: "1010" },
+            { nama: "Kiki", kelas: "11A", kota: "Pontianak", nim: "1011" },
+            { nama: "Lina", kelas: "12A", kota: "Batam", nim: "1012" },
+            { nama: "Bayu", kelas: "10A", kota: "Batang", nim: "1013" }
+        ];
+
+        // Menggunakan loop for...of untuk menampilkan data siswa dari kota Bandung
+        const studentDataDiv = document.getElementById("studentData");
+
+        for (const student of students) {
+            // Cek apakah siswa dari kota Bandung
+            if (student.kelas === "11A" || student.kelas === "10A") {
+                // Tampilkan di HTML
+                const studentInfo = document.createElement("p");
+                studentInfo.innerText = `Nama: ${student.nama}, Kelas: ${student.kelas}, Kota: ${student.kota}, NIM: ${student.nim}`;
+                studentDataDiv.appendChild(studentInfo);
+
+                // Tampilkan di console
+                console.log(`Nama: ${student.nama}, Kelas: ${student.kelas}, Kota: ${student.kota}, NIM: ${student.nim}`);
+            }
+        }
+    </script>
+</body>
+
+</html>
