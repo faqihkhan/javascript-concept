@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Example 2 - Elements with Index</title>
+</head>
+<body>
+    <h1>Contoh 2: Menampilkan Elemen Array Beserta Indeksnya</h1>
+    <ul id="output2"></ul>
+
+    <script>
+        const colors = ['Merah', 'Hijau', 'Biru'];
+        const colorsWithIndex = colors.map((color, index) => `Warna ke-${index + 1}: ${color}`);
+
+        colorsWithIndex.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.innerText = item;
+            document.getElementById('output2').appendChild(listItem);
+        });
+    </script>
+</body>
+</html>

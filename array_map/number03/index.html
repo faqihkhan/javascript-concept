@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Example 3 - Add Property to Objects</title>
+</head>
+<body>
+    <h1>Contoh 3: Menambah Properti pada Array Objek</h1>
+    <ul id="output3"></ul>
+
+    <script>
+        const cars = [
+            { name: 'Toyota', model: 'Corolla' },
+            { name: 'Honda', model: 'Civic' },
+            { name: 'Ford', model: 'Fiesta' }
+        ];
+
+        const carsWithStatus = cars.map(car => {
+            return { ...car, status: 'Available' };
+        });
+
+        carsWithStatus.forEach(car => {
+            const listItem = document.createElement('li');
+            listItem.innerText = `Mobil: ${car.name}, Model: ${car.model}, Status: ${car.status}`;
+            document.getElementById('output3').appendChild(listItem);
+        });
+    </script>
+</body>
+</html>
