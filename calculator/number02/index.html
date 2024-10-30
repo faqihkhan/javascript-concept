@@ -94,7 +94,8 @@
   }
 
   function appendOperator(operator) {
-    if (expression === '' || "+-*/".includes(expression.slice(-1))) return;
+    if (expression === '' || "+-*/".includes(expression.slice(-1))) 
+    return;
     expression += operator;
     updateDisplay();
   }
