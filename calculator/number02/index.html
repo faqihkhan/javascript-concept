@@ -95,41 +95,60 @@
 
   function appendOperator(operator) {
     if (expression === '' || "+-*/".includes(expression.slice(-1))) 
-    return;
+      return;
     expression += operator;
     updateDisplay();
   }
 
   function calculate() {
-    const tokens = expression.match(/(\d+\.?\d*|\+|\-|\*|\/)/g);
-    if (!tokens) return;
-
-    // Step 1: Handle multiplication and division
     const stack = [];
-    let i = 0;
+    let currentNumber = '';
+    let lastOperator = '+';
 
-    while (i < tokens.length) {
-      const token = tokens[i];
-      
-      if (token === '*' || token === '/') {
-        const prev = parseFloat(stack.pop());
-        const next = parseFloat(tokens[++i]);
-        const result = token === '*' ? prev * next : prev / next;
-        stack.push(result);
+    for (let i = 0; i < expression.length; i++) {
+      const char = expression[i];
+
+      if (!isNaN(char) || char === '.') {
+        currentNumber += char;
       } else {
-        stack.push(token);
+        if (currentNumber) {
+          const num = parseFloat(currentNumber);
+          if (lastOperator === '+') {
+            stack.push(num);
+          } else if (lastOperator === '-') {
+            stack.push(-num);
+          } else if (lastOperator === '*') {
+            const b = stack.pop();
+            stack.push(b * num);
+          } else if (lastOperator === '/') {
+            const b = stack.pop();
+            stack.push(b / num);
+          }
+          currentNumber = '';
+        }
+        lastOperator = char;
       }
-      i++;
     }
 
-    // Step 2: Handle addition and subtraction
-    let result = parseFloat(stack[0]);
-    for (let j = 1; j < stack.length; j += 2) {
-      const operator = stack[j];
-      const nextValue = parseFloat(stack[j + 1]);
-      result = operator === '+' ? result + nextValue : result - nextValue;
+    // Handle the last number
+    if (currentNumber) {
+      const num = parseFloat(currentNumber);
+      if (lastOperator === '+') {
+        stack.push(num);
+      } else if (lastOperator === '-') {
+        stack.push(-num);
+      } else if (lastOperator === '*') {
+        const b = stack.pop();
+        stack.push(b * num);
+      } else if (lastOperator === '/') {
+        const b = stack.pop();
+        stack.push(b / num);
+      }
     }
 
+    // Sum all values in the stack
+    const result = stack.reduce((acc, curr) => acc + curr, 0);
+    
     expression = result.toString();
     updateDisplay();
   }
@@ -143,6 +162,8 @@
     document.getElementById("display").value = expression;
   }
 </script>
+
+
 
 </body>
 </html>
