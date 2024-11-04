@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Manipulasi DOM</title>
+</head>
+<body>
+    <h1 id="judul">Judul Asli</h1>
+    <button onclick="ubahJudul()">Ubah Judul</button>
+
+    <script>
+        function ubahJudul() {
+            window.document.getElementById("judul").innerText = "Judul Baru";
+        }
+    </script>
+</body>
+</html>

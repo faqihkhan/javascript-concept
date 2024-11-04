@@ -1,32 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catatan</title>
-</head>
-<body>
-    <div>
-        <h1>Catatan</h1>
-        <input type="text" id="tulisan"> <!-- Perbaiki ID menjadi 'tulisan' -->
-        <button onclick="tekanan()">Tekan</button>
-    </div>
-    <ul id="hasilan"></ul>
+<div>
+    <h1>Catatan</h1>
+    <input type="text" id="tulisan"> <!-- Perbaiki ID menjadi 'tulisan' -->
+    <button onclick="tekanan()">Tekan</button>
+</div>
+<ul id="hasilan"></ul>
 
 <script>
-    function tekanan() {
-        const tulis = document.getElementById('tulisan');
-        const hasil = document.getElementById('hasilan');
+function tekanan() {
+    const tulis = document.getElementById('tulisan');
+    const hasil = document.getElementById('hasilan');
 
-        if (tulis.value !== '') {
-            const buat = document.createElement('li')
-            buat.innerText = tulis.value
-            hasil.appendChild(buat)
-            tulis.value = ''
-        } else {
-            console.log("tulis dulu dek!!!")
-        }
+    if (tulis.value !== '') {
+        const buat = document.createElement('li')
+        buat.innerText = tulis.value
+        hasil.appendChild(buat)
+        tulis.value = ''
+    } else {
+        console.log("tulis dulu dek!!!")
     }
+}
 </script>
-</body>
-</html>

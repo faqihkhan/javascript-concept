@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Penyimpanan Lokal</title>
+</head>
+<body>
+    <h1>Local Storage</h1>
+    <button onclick="simpanData()">Simpan Data</button>
+    <button onclick="ambilData()">Ambil Data</button>
+    <p id="output"></p>
+
+    <script>
+        function simpanData() {
+            window.localStorage.setItem("nama", "ChatGPT");
+            alert("Data disimpan!");
+        }
+
+        function ambilData() {
+            const nama = window.localStorage.getItem("nama");
+            document.getElementById("output").innerText = "Nama: " + nama;
+        }
+    </script>
+</body>
+</html>

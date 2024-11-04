@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Informasi Perangkat</title>
+</head>
+<body>
+    <h1>Informasi Perangkat</h1>
+    <p id="output"></p>
+
+    <script>
+        const info = "Browser: " + window.navigator.userAgent + "\n" + 
+                     "Bahasa: " + window.navigator.language;
+        document.getElementById("output").innerText = info;
+    </script>
+</body>
+</html>

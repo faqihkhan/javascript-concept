@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Dialog Pop-Up</title>
+</head>
+<body>
+    <h1>Dialog Pop-Up</h1>
+    <button onclick="tampilkanAlert()">Tampilkan Alert</button>
+    <button onclick="tampilkanConfirm()">Tampilkan Confirm</button>
+    <button onclick="tampilkanPrompt()">Tampilkan Prompt</button>
+    <p id="output"></p>
+
+    <script>
+        function tampilkanAlert() {
+            window.alert("Ini adalah alert!");
+        }
+
+        function tampilkanConfirm() {
+            const hasil = window.confirm("Apakah Anda yakin?");
+            document.getElementById("output").innerText = "Confirm: " + hasil;
+        }
+
+        function tampilkanPrompt() {
+            const nama = window.prompt("Masukkan nama Anda:");
+            document.getElementById("output").innerText = "Nama: " + nama;
+        }
+    </script>
+</body>
+</html>

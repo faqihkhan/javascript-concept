@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Timer dengan setTimeout</title>
+</head>
+<body>
+    <h1>Set Timeout</h1>
+    <button onclick="tampilkanPesan()">Tampilkan Pesan Setelah 3 Detik</button>
+    <p id="output"></p>
+
+    <script>
+        function tampilkanPesan() {
+            window.setTimeout(() => {
+                document.getElementById("output").innerText = "Ini muncul setelah 3 detik.";
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

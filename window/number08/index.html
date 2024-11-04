@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Handling - Scroll</title>
+    <style>
+        body { height: 2000px; }
+    </style>
+</head>
+<body>
+    <h1>Scroll ke Bawah</h1>
+    <p id="output">Scroll halaman ini</p>
+
+    <script>
+        window.onscroll = function() {
+            document.getElementById("output").innerText = "Anda sedang scroll!";
+        };
+    </script>
+</body>
+</html>
