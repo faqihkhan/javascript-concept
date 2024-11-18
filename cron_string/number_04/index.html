@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembuat Jadwal Bergilir</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            color: #1a237e;
+            margin-bottom: 20px;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .names-container {
+            margin-bottom: 15px;
+        }
+
+        .name-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .name-input input {
+            flex-grow: 1;
+        }
+
+        button {
+            background-color: #1a237e;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #283593;
+        }
+
+        .remove-btn {
+            background-color: #f44336;
+        }
+
+        .remove-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .add-name-btn {
+            background-color: #4caf50;
+            margin-bottom: 20px;
+        }
+
+        .add-name-btn:hover {
+            background-color: #388e3c;
+        }
+
+        .schedule-list {
+            margin-top: 30px;
+        }
+
+        .schedule-item {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #1a237e;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .schedule-title {
+            font-weight: bold;
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+
+        .weekday-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .weekday-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .weekday-checkbox input {
+            width: auto;
+        }
+
+        .delete-schedule {
+            background-color: #f44336;
+            padding: 5px 10px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pembuat Jadwal Bergilir</h1>
+        
+        <form id="scheduleForm">
+            <div class="form-section">
+                <h2>Daftar Nama</h2>
+                <div id="namesContainer" class="names-container">
+                    <div class="name-input">
+                        <input type="text" placeholder="Masukkan nama" required>
+                        <button type="button" class="remove-btn" onclick="removeName(this)">Hapus</button>
+                    </div>
+                </div>
+                <button type="button" class="add-name-btn" onclick="addNameField()">Tambah Nama</button>
+            </div>
+
+            <div class="form-section">
+                <h2>Pengaturan Jadwal</h2>
+                <div class="form-group">
+                    <label for="scheduleType">Jenis Pengulangan:</label>
+                    <select id="scheduleType" onchange="toggleScheduleOptions()">
+                        <option value="daily">Setiap Hari</option>
+                        <option value="weekly">Mingguan</option>
+                        <option value="monthly">Bulanan</option>
+                        <option value="yearly">Tahunan</option>
+                    </select>
+                </div>
+
+                <div id="weeklyOptions" class="form-group" style="display: none;">
+                    <label>Pilih Hari:</label>
+                    <div class="weekday-selector">
+                        <label class="weekday-checkbox">
+                            <input type="checkbox" value="1"> Senin
+                        </label>
+                        <label class="weekday-checkbox">
+                            <input type="checkbox" value="2"> Selasa
+                        </label>
+                        <label class="weekday-checkbox">
+                            <input type="checkbox" value="3"> Rabu
+                        </label>
+                        <label class="weekday-checkbox">
+                            <input type="checkbox" value="4"> Kamis
+                        </label>
+                        <label class="weekday-checkbox">
+                            <input type="checkbox" value="5"> Jumat
+                        </label>
+                        <label class="weekday-checkbox">
+                            <input type="checkbox" value="6"> Sabtu
+                        </label>
+                        <label class="weekday-checkbox">
+                            <input type="checkbox" value="0"> Minggu
+                        </label>
+                    </div>
+                </div>
+
+                <div id="monthlyOptions" class="form-group" style="display: none;">
+                    <label for="monthDay">Tanggal:</label>
+                    <input type="number" id="monthDay" min="1" max="31" placeholder="Masukkan tanggal (1-31)">
+                </div>
+
+                <div id="yearlyOptions" class="form-group" style="display: none;">
+                    <label for="yearMonth">Bulan:</label>
+                    <select id="yearMonth">
+                        <option value="1">Januari</option>
+                        <option value="2">Februari</option>
+                        <option value="3">Maret</option>
+                        <option value="4">April</option>
+                        <option value="5">Mei</option>
+                        <option value="6">Juni</option>
+                        <option value="7">Juli</option>
+                        <option value="8">Agustus</option>
+                        <option value="9">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">November</option>
+                        <option value="12">Desember</option>
+                    </select>
+                    <label for="yearDay">Tanggal:</label>
+                    <input type="number" id="yearDay" min="1" max="31" placeholder="Masukkan tanggal (1-31)">
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Waktu:</label>
+                    <input type="time" id="time" required>
+                </div>
+            </div>
+
+            <button type="submit">Buat Jadwal</button>
+        </form>
+
+        <div class="schedule-list">
+            <h2>Daftar Jadwal</h2>
+            <div id="scheduleItems"></div>
+        </div>
+    </div>
+
+    <script>
+        class RotationSchedule {
+            constructor() {
+                this.schedules = JSON.parse(localStorage.getItem('rotationSchedules')) || [];
+                this.renderSchedules();
+            }
+
+            addSchedule(names, type, time, options) {
+                const schedule = {
+                    id: Date.now(),
+                    names: names,
+                    type: type,
+                    time: time,
+                    options: options,
+                    currentIndex: 0,
+                    lastRotation: null
+                };
+
+                this.schedules.push(schedule);
+                this.saveSchedules();
+                this.renderSchedules();
+            }
+
+            deleteSchedule(id) {
+                this.schedules = this.schedules.filter(schedule => schedule.id !== id);
+                this.saveSchedules();
+                this.renderSchedules();
+            }
+
+            saveSchedules() {
+                localStorage.setItem('rotationSchedules', JSON.stringify(this.schedules));
+            }
+
+            formatScheduleDescription(schedule) {
+                const timeStr = schedule.time;
+                let description = `${schedule.names.length} orang - `;
+
+                switch(schedule.type) {
+                    case 'daily':
+                        description += `Setiap hari pukul ${timeStr}`;
+                        break;
+                    case 'weekly':
+                        const days = schedule.options.days.map(day => {
+                            const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                            return dayNames[day];
+                        }).join(', ');
+                        description += `Setiap ${days} pukul ${timeStr}`;
+                        break;
+                    case 'monthly':
+                        description += `Setiap tanggal ${schedule.options.day} pukul ${timeStr}`;
+                        break;
+                    case 'yearly':
+                        const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                                      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                        description += `Setiap ${schedule.options.day} ${months[schedule.options.month - 1]} pukul ${timeStr}`;
+                        break;
+                }
+
+                return description;
+            }
+
+            renderSchedules() {
+                const container = document.getElementById('scheduleItems');
+                container.innerHTML = '';
+
+                this.schedules.forEach(schedule => {
+                    const item = document.createElement('div');
+                    item.className = 'schedule-item';
+
+                    const description = this.formatScheduleDescription(schedule);
+                    const nextPerson = schedule.names[schedule.currentIndex];
+
+                    item.innerHTML = `
+                        <div class="schedule-title">${description}</div>
+                        <p><strong>Urutan Nama:</strong> ${schedule.names.join(', ')}</p>
+                        <p><strong>Giliran Selanjutnya:</strong> ${nextPerson}</p>
+                        <button class="delete-schedule" onclick="rotationSchedule.deleteSchedule(${schedule.id})">
+                            Hapus Jadwal
+                        </button>
+                    `;
+
+                    container.appendChild(item);
+                });
+            }
+        }
+
+        function addNameField() {
+            const container = document.getElementById('namesContainer');
+            const nameInput = document.createElement('div');
+            nameInput.className = 'name-input';
+            nameInput.innerHTML = `
+                <input type="text" placeholder="Masukkan nama" required>
+                <button type="button" class="remove-btn" onclick="removeName(this)">Hapus</button>
+            `;
+            container.appendChild(nameInput);
+        }
+
+        function removeName(button) {
+            const container = document.getElementById('namesContainer');
+            if (container.children.length > 1) {
+                button.parentElement.remove();
+            }
+        }
+
+        function toggleScheduleOptions() {
+            const type = document.getElementById('scheduleType').value;
+            document.getElementById('weeklyOptions').style.display = type === 'weekly' ? 'block' : 'none';
+            document.getElementById('monthlyOptions').style.display = type === 'monthly' ? 'block' : 'none';
+            document.getElementById('yearlyOptions').style.display = type === 'yearly' ? 'block' : 'none';
+        }
+
+        const rotationSchedule = new RotationSchedule();
+
+        document.getElementById('scheduleForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const nameInputs = document.querySelectorAll('#namesContainer input');
+            const names = Array.from(nameInputs).map(input => input.value).filter(name => name.trim() !== '');
+            
+            if (names.length === 0) {
+                alert('Masukkan setidaknya satu nama');
+                return;
+            }
+
+            const type = document.getElementById('scheduleType').value;
+            const time = document.getElementById('time').value;
+            
+            let options = {};
+            
+            switch(type) {
+                case 'weekly':
+                    const selectedDays = Array.from(document.querySelectorAll('#weeklyOptions input:checked'))
+                        .map(checkbox => parseInt(checkbox.value));
+                    if (selectedDays.length === 0) {
+                        alert('Pilih setidaknya satu hari');
+                        return;
+                    }
+                    options.days = selectedDays;
+                    break;
+                case 'monthly':
+                    const monthDay = document.getElementById('monthDay').value;
+                    if (!monthDay || monthDay < 1 || monthDay > 31) {
+                        alert('Masukkan tanggal yang valid (1-31)');
+                        return;
+                    }
+                    options.day = parseInt(monthDay);
+                    break;
+                case 'yearly':
+                    const yearMonth = document.getElementById('yearMonth').value;
+                    const yearDay = document.getElementById('yearDay').value;
+                    if (!yearDay || yearDay < 1 || yearDay > 31) {
+                        alert('Masukkan tanggal yang valid (1-31)');
+                        return;
+                    }
+                    options.month = parseInt(yearMonth);
+                    options.day = parseInt(yearDay);
+                    break;
+            }
+
+            rotationSchedule.addSchedule(names, type, time, options);
+            e.target.reset();
+            document.querySelectorAll('#namesContainer .name-input').forEach((el, index) => {
+                if (index > 0) el.remove();
+            });
+            toggleScheduleOptions();
+        });
+    </script>
+</body>
+</html>

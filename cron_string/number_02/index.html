@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jadwal Nama Bergantian</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    #name-display {
+      font-size: 24px;
+      margin: 20px 0;
+      padding: 20px;
+      border: 2px solid #00796b;
+      background: #e0f7fa;
+      color: #004d40;
+      display: inline-block;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jadwal Nama Bergantian</h1>
+  <div id="name-display">Menunggu...</div>
+
+  <script>
+    // Daftar nama
+    const names = ["Ali", "Budi", "Citra", "Dewi", "Eko", "Fira"];
+    let currentIndex = 0;
+
+    // Fungsi untuk menampilkan nama bergantian
+    function displayNextName() {
+      const nameDisplay = document.getElementById('name-display');
+      nameDisplay.textContent = `Nama Saat Ini: ${names[currentIndex]}`;
+      currentIndex = (currentIndex + 1) % names.length; // Berputar kembali ke awal setelah nama terakhir
+    }
+
+    // Memulai jadwal setiap 30 detik
+    displayNextName(); // Tampilkan nama pertama segera
+    setInterval(displayNextName, 5000); // 5 detik = 5000 ms
+  </script>
+</body>
+</html>

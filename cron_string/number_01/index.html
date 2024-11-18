@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cron String Parser</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 10px;
+      background: #e0f7fa;
+      border: 1px solid #00796b;
+      color: #004d40;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple Cron String Parser</h1>
+  <p>Masukkan cron string (contoh: <code>* * * * *</code>) untuk melihat jadwalnya:</p>
+  <input type="text" id="cronInput" placeholder="Masukkan cron string di sini">
+  <button onclick="parseCron()">Parse Cron String</button>
+  <div id="result"></div>
+
+  <script>
+    function parseCron() {
+      const cronInput = document.getElementById('cronInput').value.trim();
+      const resultDiv = document.getElementById('result');
+      
+      // Split cron string into parts
+      const parts = cronInput.split(' ');
+
+      if (parts.length !== 5) {
+        resultDiv.innerHTML = `<p style="color: red;">Cron string harus memiliki 5 bagian!</p>`;
+        return;
+      }
+
+      const [minute, hour, day, month, dayOfWeek] = parts;
+
+      // Generate readable explanation
+      const explanations = [
+        `Menit: ${minute === '*' ? 'setiap menit' : `pada menit ${minute}`}`,
+        `Jam: ${hour === '*' ? 'setiap jam' : `pada jam ${hour}`}`,
+        `Hari dalam bulan: ${day === '*' ? 'setiap hari' : `pada hari ${day}`}`,
+        `Bulan: ${month === '*' ? 'setiap bulan' : `pada bulan ${month}`}`,
+        `Hari dalam minggu: ${dayOfWeek === '*' ? 'setiap hari dalam minggu' : `pada hari ke-${dayOfWeek}`} (0 = Minggu, 1 = Senin, dst)`
+      ];
+
+      resultDiv.innerHTML = explanations.map(e => `<p>${e}</p>`).join('');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembuat Jadwal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .schedule-list {
+            margin-top: 30px;
+        }
+
+        .schedule-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pembuat Jadwal</h1>
+        
+        <form id="scheduleForm">
+            <div class="form-group">
+                <label for="name">Nama:</label>
+                <select id="name" required>
+                    <option value="">Pilih Nama</option>
+                    <option value="Ahmad">Ahmad</option>
+                    <option value="Budi">Budi</option>
+                    <option value="Cindy">Cindy</option>
+                    <option value="Diana">Diana</option>
+                    <option value="Erik">Erik</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Tanggal:</label>
+                <input type="date" id="date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="time">Waktu:</label>
+                <input type="time" id="time" required>
+            </div>
+
+            <div class="form-group">
+                <label for="repeat">Pengulangan:</label>
+                <select id="repeat" required>
+                    <option value="once">Sekali</option>
+                    <option value="daily">Setiap Hari</option>
+                    <option value="weekly">Setiap Minggu</option>
+                    <option value="monthly">Setiap Bulan</option>
+                </select>
+            </div>
+
+            <button type="submit">Buat Jadwal</button>
+        </form>
+
+        <div class="schedule-list">
+            <h2>Daftar Jadwal</h2>
+            <div id="scheduleItems"></div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        class Schedule {
+            constructor(name, date, time, repeat) {
+                this.id = Date.now();
+                this.name = name;
+                this.date = date;
+                this.time = time;
+                this.repeat = repeat;
+                this.cronExpression = this.generateCronExpression();
+            }
+
+            generateCronExpression() {
+                const dateObj = new Date(`${this.date}T${this.time}`);
+                const minutes = dateObj.getMinutes();
+                const hours = dateObj.getHours();
+                const dayOfMonth = dateObj.getDate();
+                const month = dateObj.getMonth() + 1;
+                const dayOfWeek = dateObj.getDay();
+
+                switch(this.repeat) {
+                    case 'once':
+                        return `${minutes} ${hours} ${dayOfMonth} ${month} *`;
+                    case 'daily':
+                        return `${minutes} ${hours} * * *`;
+                    case 'weekly':
+                        return `${minutes} ${hours} * * ${dayOfWeek}`;
+                    case 'monthly':
+                        return `${minutes} ${hours} ${dayOfMonth} * *`;
+                    default:
+                        return '';
+                }
+            }
+        }
+
+        class ScheduleManager {
+            constructor() {
+                this.schedules = [];
+                this.loadSchedules();
+                this.checkSchedules();
+                setInterval(() => this.checkSchedules(), 60000); // Check every minute
+            }
+
+            addSchedule(schedule) {
+                this.schedules.push(schedule);
+                this.saveSchedules();
+                this.renderSchedules();
+            }
+
+            loadSchedules() {
+                const saved = localStorage.getItem('schedules');
+                this.schedules = saved ? JSON.parse(saved) : [];
+                this.renderSchedules();
+            }
+
+            saveSchedules() {
+                localStorage.setItem('schedules', JSON.stringify(this.schedules));
+            }
+
+            checkSchedules() {
+                const now = new Date();
+                this.schedules.forEach(schedule => {
+                    const scheduleDate = new Date(`${schedule.date}T${schedule.time}`);
+                    
+                    if (this.shouldNotify(schedule, now)) {
+                        this.showNotification(`Waktu untuk jadwal ${schedule.name}!`);
+                    }
+                });
+            }
+
+            shouldNotify(schedule, now) {
+                const scheduleDate = new Date(`${schedule.date}T${schedule.time}`);
+                
+                switch(schedule.repeat) {
+                    case 'once':
+                        return this.isSameMinute(scheduleDate, now);
+                    case 'daily':
+                        return this.isSameTimeOfDay(scheduleDate, now);
+                    case 'weekly':
+                        return this.isSameTimeOfDay(scheduleDate, now) && 
+                               scheduleDate.getDay() === now.getDay();
+                    case 'monthly':
+                        return this.isSameTimeOfDay(scheduleDate, now) && 
+                               scheduleDate.getDate() === now.getDate();
+                    default:
+                        return false;
+                }
+            }
+
+            isSameMinute(date1, date2) {
+                return date1.getHours() === date2.getHours() && 
+                       date1.getMinutes() === date2.getMinutes();
+            }
+
+            isSameTimeOfDay(date1, date2) {
+                return this.isSameMinute(date1, date2);
+            }
+
+            showNotification(message) {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.style.display = 'block';
+                
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 5000);
+
+                // Browser notification
+                if (Notification.permission === "granted") {
+                    new Notification(message);
+                } else if (Notification.permission !== "denied") {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                            new Notification(message);
+                        }
+                    });
+                }
+            }
+
+            renderSchedules() {
+                const container = document.getElementById('scheduleItems');
+                container.innerHTML = '';
+
+                this.schedules.forEach(schedule => {
+                    const item = document.createElement('div');
+                    item.className = 'schedule-item';
+                    
+                    const repeatText = {
+                        once: 'Sekali',
+                        daily: 'Setiap Hari',
+                        weekly: 'Setiap Minggu',
+                        monthly: 'Setiap Bulan'
+                    }[schedule.repeat];
+
+                    item.innerHTML = `
+                        <p><strong>Nama:</strong> ${schedule.name}</p>
+                        <p><strong>Tanggal:</strong> ${schedule.date}</p>
+                        <p><strong>Waktu:</strong> ${schedule.time}</p>
+                        <p><strong>Pengulangan:</strong> ${repeatText}</p>
+                    `;
+                    container.appendChild(item);
+                });
+            }
+        }
+
+        const scheduleManager = new ScheduleManager();
+
+        document.getElementById('scheduleForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const repeat = document.getElementById('repeat').value;
+
+            const schedule = new Schedule(name, date, time, repeat);
+            scheduleManager.addSchedule(schedule);
+
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
